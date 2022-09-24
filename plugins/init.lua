@@ -2,7 +2,11 @@ local overrides = require "custom.plugins.overrides"
 
 return {
 
-  ["goolord/alpha-nvim"] = { disable = false }, -- enables dashboard
+  ["goolord/alpha-nvim"] = {
+    disable = false,
+    override_options = overrides.alpha,
+  }, -- enables dashboard
+
   ["folke/which-key.nvim"] = { disable = false },
 
   -- Override plugin definition options
@@ -46,7 +50,7 @@ return {
     override_options = {
       statusline = {
         override_style = "round",
-        override_options = function()
+        overriden_modules = function()
           return require "custom.plugins.statusline-modules"
         end,
       },
@@ -65,7 +69,7 @@ return {
 
   ["hrsh7th/nvim-cmp"] = {
     override_options = function()
-        return require "custom.plugins.cmp"
+         require "custom.plugins.cmp"
     end,
   },
 
@@ -108,8 +112,28 @@ return {
   ["nvim-telescope/telescope-fzf-native.nvim"] = {
     run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
   },
+  ["nvim-telescope/telescope.nvim"] = {
+    override_options = overrides.telescope,
+  },
 
-  ["ravenxrz/neovim-cmake"] = {},
+  ["Civitasv/cmake-tools.nvim"] = {
+    config = function ()
+      require "custom.plugins.cmake-tools"
+    end
+  },
+
+  ["folke/trouble.nvim"] = {
+    config = function ()
+      require "custom.plugins.trouble"
+    end
+  },
+
+  ["michaelb/sniprun"] = {
+    --run = 'bash ./install.sh',
+    config = function ()
+      require "custom.plugins.sniprun"
+    end
+  },
   -- remove plugin
   -- ["hrsh7th/cmp-path"] = false,
 }
